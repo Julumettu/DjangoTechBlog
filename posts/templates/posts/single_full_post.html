@@ -1,0 +1,36 @@
+{% include "posts/sidebar.html" %} 
+{% load static %}
+
+<div class="main">
+<link rel="stylesheet" type="text/css" href="{% static 'posts/style.css' %}">
+
+{% if post %}
+	<h>{{ post.title }}</h>
+        <p>{{ post.blog_text }}</p>
+	<p>{{ post.pub_date }} </p>
+    	<a href="{% url 'posts:index' %}">Back to front page</a>
+{% endif %}
+<form action="{% url 'posts:submit_comment' %}" method="post">
+{% csrf_token %}
+    {% if user.is_authenticated %}
+    <label for="comment">Leave a comment </label><br>
+    <input type="text" name="comment" value="">
+    <input type="hidden" name="title" value="{{ post.id }}">
+    <input type="hidden" name="username" value="{{ user.username }}">
+    <input type="submit" value="Send">
+    {% else %}
+    	<p>You must be logged in to comment</p>
+    	<a href="/accounts/login">Login</a>
+    {% endif %}
+</form>
+{% if comments %}
+    <div class="comments">
+    {% for comment in comments %}
+    <p>{{ comment.comment }}</p>
+    <p>{{ comment.pub_date }}</p>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>There are no comments here! :( Maybe you could leave one?</p>
+{% endif %}
+</div>

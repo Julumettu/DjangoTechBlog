@@ -1,0 +1,16 @@
+{% include "posts/sidebar.html" %}
+{% load static %}
+<div class="main">
+<link rel="stylesheet" type="text/css" href="{% static 'posts/style.css' %}">
+<h1> Tech-Blog about DevOps and stuff by Juho Rönkkö </h1><br>
+{% if post_list %}
+    {% for post in post_list %}
+    <h>{{ post.title }} ({{post.pub_date}})</h>
+        <p>{{ post.short_text }}</p>
+    	<a href="{% url 'posts:post' post.id %}">Full text</a>
+    <br>
+    {% endfor %}
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
+</div>
