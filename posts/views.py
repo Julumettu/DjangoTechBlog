@@ -55,9 +55,10 @@ def test_upload(request):
 
 def upload_something(request):
     if request.method == 'POST':
-        uploaded_file = request.FILES['document']
-        post = request.POST['description']
-        new_upload = PostWithUploads(post=post,file=uploaded_file)
-        new_upload.save()
+        if request.user.is_authenticated and request.user.is_superuser:
+            uploaded_file = request.FILES['document']
+            post = request.POST['description']
+            new_upload = PostWithUploads(post=post,file=uploaded_file)
+            new_upload.save()
         return HttpResponseRedirect('/posts/upload_file')
     return render(request, 'upload.html')
