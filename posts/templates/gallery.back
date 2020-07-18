@@ -1,0 +1,8 @@
+{% load static %}
+
+{% for description in descriptions %}
+<p> {{description.file}} </p>
+{% endfor %}
+{% for image in images %}
+<img src='{% static "uploads/" %}{{image}}' />
+{% endfor %}

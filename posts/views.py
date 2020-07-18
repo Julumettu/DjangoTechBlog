@@ -1,10 +1,11 @@
 from django.utils import timezone
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import StandardTextPost,Comment
+from .models import StandardTextPost,Comment,PostWithUploads
 from django.template import loader
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
+import os
 
 def index(request):
     post_list = StandardTextPost.objects.order_by('-pub_date')
@@ -40,3 +41,23 @@ def submit_comment(request):
 
 def submit_blog_post(request, submit):
     return HttpResponse("jee!")
+
+def test_upload(request):
+    #path="/var/lib/techblog/posts/static/uploads"
+    #img_list = os.listdir(path)
+    description = PostWithUploads.objects.order_by('file')
+    template = loader.get_template('gallery.html')
+    context = {
+        #'images': img_list,
+        'descriptions': description,
+    }
+    return HttpResponse(template.render(context, request))
+
+def upload_something(request):
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document']
+        post = request.POST['description']
+        new_upload = PostWithUploads(post=post,file=uploaded_file)
+        new_upload.save()
+        return HttpResponseRedirect('/posts/upload_file')
+    return render(request, 'upload.html')

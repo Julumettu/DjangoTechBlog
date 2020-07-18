@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib import admin
-
+import os
 # Create your models here.
 
 class StandardTextPost(models.Model):
@@ -19,3 +19,9 @@ class Comment(models.Model):
     def __str__(self):
         return self.comment
 
+class PostWithUploads(models.Model):
+    post = models.CharField(max_length=500)
+    file = models.FileField()
+
+    def filename(self):
+        return os.path.basename(self.file.name)

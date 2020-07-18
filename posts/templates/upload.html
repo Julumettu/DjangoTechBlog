@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'posts/style.css' %}">
+{% include "posts/sidebar.html" %}
+<div class="main">
+<h> Upload some files </h>
+<form action="{% url 'posts:upload_file' %}" enctype="multipart/form-data" method="post">
+{% csrf_token %}
+    {% if user.is_authenticated and user.is_superuser %}
+    <input type="text" name="description">
+    <input type="file" name="document">
+    <input type="submit" value="Send">
+    {% else %}
+        <p>You must be logged in with admin user to upload something</p>
+        <a href="/accounts/login">Login</a>
+    {% endif %}
+</form>
+</div>

@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'posts/style.css' %}">
+{% include "posts/sidebar.html" %}
+<div class="main">
+{% for description in descriptions %}
+<p> {{description.post}} </p>
+<img src='media/{{description.filename}}' />
+{% endfor %}
+</div>

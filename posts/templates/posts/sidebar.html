@@ -5,9 +5,13 @@
   <a href="{% url 'posts:index' %}">Posts</a>
   <a target="_blank" rel="noopener noreferrer" href="https://github.com/Julumettu">GitHub</a>
   {% if user.is_authenticated %}
-  <p1> User: {{ user.username }}</p1>
+  <p1> Logged in as {{ user.username }}</p1>
+  {% if user.is_superuser %}
+  <a href="/posts/upload_file">Upload files</a>
+  {% endif %}
   <a href="/accounts/logout">Logout</a>
   {% else %}
   <a href="/accounts/login">Login</a>
+  <a href="/register">Registration</a>
   {% endif %}
 </div>
