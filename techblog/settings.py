@@ -26,7 +26,6 @@ SECRET_KEY = 'Please_change_me_when_you_use_this_project!'
 DEBUG = True
 
 # Please modify this if you are going to run this project in production!
-ffa6eaf30c27d7cd10f5da2903217a495dddc9d8
 ALLOWED_HOSTS = ['*']
 
 
