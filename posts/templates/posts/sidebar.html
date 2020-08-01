@@ -1,7 +1,7 @@
 {% load static %}
 <div class="sidenav"> 
   <img src="{% static "posts/images/mina.jpg" %}"><br>
-  <a href="{% url 'posts:about' %}">About</a>
+  <a href="{% url 'about' %}">About</a>
   <a href="{% url 'posts:index' %}">Posts</a>
   <a target="_blank" rel="noopener noreferrer" href="https://github.com/Julumettu">GitHub</a>
   {% if user.is_authenticated %}

@@ -4,6 +4,6 @@
 <div class="main">
 {% for description in descriptions %}
 <p> {{description.post}} </p>
-<img src='media/{{description.filename}}' />
+<img src="{{description.file.url }}" />
 {% endfor %}
 </div>
